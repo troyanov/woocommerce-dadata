@@ -1,6 +1,8 @@
 # WooCommerce DaData
 Быстрый ввод адресов, ФИО и e-mail при оформлении заказа.
 
+![Demo](https://github.com/troyanov/woocommerce-dadata/raw/master/demo.gif)
+
 # Описание
 Данный плагин добавляет функцию автодополнения к следующим полям при оформлении заказа:
 
