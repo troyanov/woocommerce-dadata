@@ -30,7 +30,7 @@ final class WooCommerce_DaData {
 	 * Set up the plugin
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'WooCommerce_DaData_setup' ), -1 );
+		add_action( 'init', array( $this, 'WooCommerce_DaData_setup' ), -1 );		
 		require_once( 'custom/functions.php' );
 	}
 
@@ -39,9 +39,12 @@ final class WooCommerce_DaData {
 	 */
 	public function WooCommerce_DaData_setup() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'WooCommerce_DaData_css' ), 999 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'WooCommerce_DaData_js' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'WooCommerce_DaData_js' ));
 		add_filter( 'template_include',   array( $this, 'WooCommerce_DaData_template' ), 11 );
 		add_filter( 'wc_get_template',    array( $this, 'WooCommerce_DaData_wc_get_template' ), 11, 5 );
+		add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_settings_tab'), 50 );
+		add_action( 'woocommerce_settings_tabs_settings_tab_wcddc', array( $this, 'settings_tab') );
+		add_action( 'woocommerce_update_options_settings_tab_wcddc', array( $this, 'update_settings') );
 	}
 
 	/**
@@ -106,6 +109,41 @@ final class WooCommerce_DaData {
 
 		return $located;
 	}
+
+	public function add_settings_tab( $settings_tabs ) {
+		$settings_tabs['settings_tab_wcddc'] = __( 'Настройки DaData', 'woocommerce-settings-tab-wcddc' );
+		return $settings_tabs;
+	}
+
+	public function settings_tab() {
+		woocommerce_admin_fields( $this->get_settings() );
+	}
+
+	public function update_settings() {
+		woocommerce_update_options( $this->get_settings() );
+	}
+
+	public function get_settings() {
+		$wcddc_settings = array(
+			'section_title' => array(
+				'name'     => __( 'DaData Подсказки', 'woocommerce-settings-tab-wcddc' ),
+				'type'     => 'title',
+				'desc'     => '',
+				'id'       => 'wc_settings_tab_wcddc_section_title'
+			),
+			'wc_settings_tab_wcddc_dadata_suggest_token' => array(
+				'name' => __( 'API-ключ', 'woocommerce-settings-tab-wcddc' ),
+				'type' => 'text',
+				'desc' => __( '<a href="https://dadata.ru/api/suggest/#registration_popup">Где взять ключ?</a>', 'woocommerce-settings-tab-wcddc' ),
+				'id'   => 'wc_settings_tab_wcddc_dadata_suggest_token'
+			),        
+			'section_end' => array(
+				'type' => 'sectionend',
+				'id' => 'wc_settings_tab_wcddc_section_end'
+			)
+		);
+		return apply_filters( 'wc_settings_tab_wcddc_settings', $wcddc_settings );
+	}
 } // End Class
 
 /**
@@ -121,42 +159,3 @@ function WooCommerce_DaData_main() {
  * Initialise the plugin
  */
 add_action( 'plugins_loaded', 'WooCommerce_DaData_main' );
-
-add_filter( 'woocommerce_settings_tabs_array', 'add_settings_tab', 50 );
-add_action( 'woocommerce_settings_tabs_settings_tab_wcddc', 'settings_tab' );
-add_action( 'woocommerce_update_options_settings_tab_wcddc', 'update_settings' );
-
-function add_settings_tab( $wcddc_settings_tabs ) {
-    $wcddc_settings_tabs['settings_tab_wcddc'] = __( 'Настройки DaData', 'woocommerce-settings-tab-wcddc' );
-    return $wcddc_settings_tabs;
-}
-
-function settings_tab() {
-    woocommerce_admin_fields( get_wcddc_settings() );
-}
-
-function update_settings() {
-    woocommerce_update_options( get_wcddc_settings() );
-}
-
-function get_wcddc_settings() {
-    $wcddc_settings = array(
-        'section_title' => array(
-            'name'     => __( 'DaData Подсказки', 'woocommerce-settings-tab-wcddc' ),
-            'type'     => 'title',
-            'desc'     => '',
-            'id'       => 'wc_settings_tab_wcddc_section_title'
-        ),
-        'wc_settings_tab_wcddc_dadata_suggest_token' => array(
-            'name' => __( 'API-ключ', 'woocommerce-settings-tab-wcddc' ),
-            'type' => 'text',
-            'desc' => __( '<a href="https://dadata.ru/api/suggest/#registration_popup">Где взять ключ?</a>', 'woocommerce-settings-tab-wcddc' ),
-            'id'   => 'wc_settings_tab_wcddc_dadata_suggest_token'
-        ),        
-        'section_end' => array(
-             'type' => 'sectionend',
-             'id' => 'wc_settings_tab_wcddc_section_end'
-        )
-    );
-    return apply_filters( 'wc_settings_tab_wcddc_settings', $wcddc_settings );
-}
