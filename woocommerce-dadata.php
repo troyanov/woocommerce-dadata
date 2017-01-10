@@ -60,6 +60,25 @@ final class WooCommerce_DaData {
 	public function WooCommerce_DaData_js() {
 		wp_enqueue_script( 'custom-js', plugins_url( '/custom/custom.js', __FILE__ ), array( 'jquery' ) );
         
+        wp_register_script( 
+            'jquery.suggestions.min', 
+            '/wp-content/plugins/woocommerce-dadata/custom/assets/js/jquery.suggestions.min.js',
+            array( 'jquery' )
+        );
+        
+        wp_enqueue_script( 'jquery.suggestions.min' );
+
+        wp_register_script( 
+            'jquery.xdomainrequest.min', 
+            '/wp-content/plugins/woocommerce-dadata/custom/assets/js/jquery.xdomainrequest.min.js', 
+            array( 'jquery' )
+        );
+        
+        wp_enqueue_script( 'jquery.suggestions.min' );
+
+        wp_enqueue_style( 'suggestions', 
+            '/wp-content/plugins/woocommerce-dadata/custom/assets/css/suggestions.css' );    
+        
         $dataToBePassed = array(
             'dadata_suggest_token'            => get_option('wc_settings_tab_wcddc_dadata_suggest_token')
         );
