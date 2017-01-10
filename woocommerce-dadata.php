@@ -111,7 +111,7 @@ final class WooCommerce_DaData {
 	}
 
 	public function add_settings_tab( $settings_tabs ) {
-		$settings_tabs['settings_tab_wcddc'] = __( 'Настройки DaData', 'woocommerce-settings-tab-wcddc' );
+		$settings_tabs['settings_tab_wcddc'] = __( 'DaData', 'woocommerce-settings-tab-wcddc' );
 		return $settings_tabs;
 	}
 
