@@ -4,10 +4,6 @@
  * Description:       Поддержка подсказок dadata.ru - быстрый ввод адресов, ФИО и email.
  * Plugin URI:        http://github.com/troyanov/woocommerce-dadata
  * Version:           1.0.0
- * Author:            Anton Troyanov
- * Author URI:        http://troyanov.net
- * Requires at least: 3.0.0
- * Tested up to:      4.4.2
  *
  * @package WooCommerce_DaData
  */
