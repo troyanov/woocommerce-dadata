@@ -42,7 +42,6 @@ final class WooCommerce_DaData {
 		add_action( 'woocommerce_settings_tabs_settings_tab_wcddc', array( $this, 'settings_tab') );
 		add_action( 'woocommerce_update_options_settings_tab_wcddc', array( $this, 'update_settings') );
 	}
-
 	/**
 	 * Enqueue the CSS
 	 *
@@ -62,7 +61,7 @@ final class WooCommerce_DaData {
         
         wp_register_script( 
             'jquery.suggestions.min', 
-            '/wp-content/plugins/woocommerce-dadata/custom/assets/js/jquery.suggestions.min.js',
+            plugins_url( '/custom/assets/js/jquery.suggestions.min.js', __FILE__ ),
             array( 'jquery' )
         );
         
@@ -70,14 +69,14 @@ final class WooCommerce_DaData {
 
         wp_register_script( 
             'jquery.xdomainrequest.min', 
-            '/wp-content/plugins/woocommerce-dadata/custom/assets/js/jquery.xdomainrequest.min.js', 
+            plugins_url( '/custom/assets/js/jquery.xdomainrequest.min.js', __FILE__), 
             array( 'jquery' )
         );
         
         wp_enqueue_script( 'jquery.suggestions.min' );
 
         wp_enqueue_style( 'suggestions', 
-            '/wp-content/plugins/woocommerce-dadata/custom/assets/css/suggestions.css' );    
+            plugins_url( '/custom/assets/css/suggestions.css', __FILE__) );    
         
         $dataToBePassed = array(
             'dadata_suggest_token'            => get_option('wc_settings_tab_wcddc_dadata_suggest_token')
@@ -124,7 +123,7 @@ final class WooCommerce_DaData {
 
 		return $located;
 	}
-
+	
 	public function add_settings_tab( $settings_tabs ) {
 		$settings_tabs['settings_tab_wcddc'] = __( 'DaData', 'woocommerce-settings-tab-wcddc' );
 		return $settings_tabs;
