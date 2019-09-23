@@ -40,7 +40,7 @@ jQuery(document).ready(function ($) {
 		count: 5,
 	});
 
-		$("#billing_last_name").suggestions({
+	$("#billing_last_name").suggestions({
 		serviceUrl: "https://suggestions.dadata.ru/suggestions/api/4_1/rs",
 		token: php_vars.dadata_suggest_token,
 		type: "NAME",
@@ -68,5 +68,29 @@ jQuery(document).ready(function ($) {
 			parts: ["SURNAME"]
 		},
 		count: 5,
+	});
+
+	$("#shipping_last_name").suggestions({
+		serviceUrl: "https://suggestions.dadata.ru/suggestions/api/4_1/rs",
+		token: php_vars.dadata_suggest_token,
+		type: "NAME",
+		params: {
+			parts: ["SURNAME"]
+		},
+		count: 5,
+	});
+
+	$("#billing_company").suggestions({
+		serviceUrl: "https://suggestions.dadata.ru/suggestions/api/4_1/rs",
+		token: php_vars.dadata_suggest_token,
+		type: "PARTY",
+		count: 5,
+		onSelect: function(suggestion) {
+			$('#billing_company').val(suggestion.unrestricted_value);
+			$('#billing_address').val(suggestion.data.address.value);
+			$('#billing_inn').val(suggestion.data.inn);
+			$('#billing_kpp').val(suggestion.data.kpp);
+			$('#billing_ogrn').val(suggestion.data.ogrn);
+        }
 	});
 });
