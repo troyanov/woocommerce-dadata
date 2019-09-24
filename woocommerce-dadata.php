@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name:       WooCommerce DaData <3
- * Description:       Поддержка подсказок dadata.ru - быстрый ввод адресов, организаций, ФИО и email.
+ * Description:       Поддержка подсказок dadata.ru - быстрый ввод адресов, банков, организаций, ФИО и email.
  * Plugin URI:        http://github.com/troyanov/woocommerce-dadata
- * Version:           1.1.0
+ * Version:           1.2.0
  *
  * @package WooCommerce_DaData
  */

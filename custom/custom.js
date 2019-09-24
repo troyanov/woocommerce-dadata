@@ -93,4 +93,18 @@ jQuery(document).ready(function ($) {
 			$('#billing_ogrn').val(suggestion.data.ogrn);
         }
 	});
+
+	$("#billing_bank").suggestions({
+		serviceUrl: "https://suggestions.dadata.ru/suggestions/api/4_1/rs",
+		token: php_vars.dadata_suggest_token,
+		type: "BANK",
+		count: 5,
+		onSelect: function(suggestion) {
+			$('#billing_bank').val(suggestion.value);
+			$('#billing_bank_address').val(suggestion.data.address.unrestricted_value);
+			$('#billing_bank_bic').val(suggestion.data.bic);
+			$('#billing_bank_swift').val(suggestion.data.swift);
+			$('#billing_bank_correspondent_account').val(suggestion.data.correspondent_account);
+        }
+	});
 });
